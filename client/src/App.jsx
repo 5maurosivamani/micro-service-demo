@@ -4,7 +4,7 @@ import PostList from "./PostList";
 
 const App = () => {
   return (
-    <div className="text-primary">
+    <div className="text-dark">
       <div className="container">
         <div className="col-md-6 my-5 mx-auto">
           <h1>Create Post</h1>

@@ -4,6 +4,7 @@ const { v4: uuid } = require("uuid");
 const bodyParser = require("body-parser");
 const port = 4001;
 const cors = require("cors");
+const axios = require("axios");
 
 const commentsByPostId = {};
 
@@ -31,7 +32,21 @@ app.post("/:id/comments", (req, res) => {
 
   commentsByPostId[postId] = comments;
 
+  axios.post("http://localhost:6000/events", {
+    type: "CommentCreated",
+    data: {
+      id: commentId,
+      comment,
+      postId,
+    },
+  });
+
   res.status(200).json(commentsByPostId[postId]);
+});
+
+app.post("/events", (req, res) => {
+  console.log("Event Received", req.body.type);
+  res.status(200).send({});
 });
 
 app.get("*", (req, res) => {

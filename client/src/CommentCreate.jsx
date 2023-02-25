@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 function CommentCreate({ postId }) {
-  const [commant, setCommant] = useState("");
+  const [comment, setComment] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -10,7 +10,7 @@ function CommentCreate({ postId }) {
       const response = await axios.post(
         `http://localhost:4001/${postId}/comments`,
         {
-          commant,
+          comment,
         }
       );
       if (response.status === 200) {
@@ -18,14 +18,14 @@ function CommentCreate({ postId }) {
       } else {
         console.log("Failed Created!");
       }
-      setCommant("");
+      setComment("");
     } catch (e) {
       console.log(e);
     }
   };
 
   const handleInputChange = (event) => {
-    setCommant(event.target.value);
+    setComment(event.target.value);
   };
 
   return (
@@ -35,14 +35,14 @@ function CommentCreate({ postId }) {
           
           <input
             type="text"
-            id="title"
-            value={commant}
+            id="comment"
+            value={comment}
             onChange={handleInputChange}
             className="form-control"
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-dark">
           Comment
         </button>
       </form>

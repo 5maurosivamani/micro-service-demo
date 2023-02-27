@@ -13,9 +13,14 @@ app.use(bodyParser.json());
 app.post("/events", (req, res) => {
   const event = req.body;
 
-  axios.post("http://localhost:4000/events", event);
-  axios.post("http://localhost:4001/events", event);
-  axios.post("http://localhost:7000/events", event);
+  try {
+    axios.post("http://localhost:4000/events", event);
+    axios.post("http://localhost:4001/events", event);
+    axios.post("http://localhost:7000/events", event);
+    axios.post("http://localhost:8000/events", event);
+  } catch (err) {
+    console.log("Error", err);
+  }
 
   res.send({ status: "OK" });
 });

@@ -38,6 +38,7 @@ app.post("/:id/comments", (req, res) => {
       id: commentId,
       comment,
       postId,
+      status: 0, // 0 = waiting, 1 = approved, 2 = rejected
     },
   });
 
@@ -45,7 +46,18 @@ app.post("/:id/comments", (req, res) => {
 });
 
 app.post("/events", (req, res) => {
-  console.log("Event Received", req.body.type);
+  const { type, data } = req.body;
+
+  if (type === "CommentModurated") {
+
+    const event = {
+      data,
+      type: "CommentUpdated",
+    };
+
+    axios.post("http://localhost:6000/events", event);
+  }
+
   res.status(200).send({});
 });
 
